@@ -14,8 +14,51 @@ const createSavingsAccount = async(body) => {
     }
 }
 
+const viewSavingsAccount = async(id) => {
+
+    try {
+    
+        const ID = id
+
+        const viewSavingsAccount = (await db).execute("SELECT * FROM savings WHERE id_clientsavings = ?", [ID])
+        return viewSavingsAccount
+    } catch (error) {
+    console.log("Connection or syntax error!", error)
+    }
+}
+
+const editSavingsAccount = async(id, body) => {
+    
+    try {
+    
+        const ID = id
+        const {balance} = body
+
+        const editSavingsAccount = (await db).execute("UPDATE savings SET balance = ? WHERE id_clientsavings = ?", [balance, ID])
+        return editSavingsAccount
+    } catch (error) {
+    console.log("Connection or syntax error!", error)
+    }
+}
+
+const deleteSavingsAccount = async(id) => {
+
+    try {
+    
+        const ID = id
+
+        const deleteSavingsAccount = (await db).execute("DELETE FROM savings WHERE id_clientsavings = ?", [ID])
+        return deleteSavingsAccount
+    } catch (error) {
+    console.log("Connection or syntax error!", error)
+    }
+}
+
 module.exports = {
 
-    createSavingsAccount
+    createSavingsAccount,
+    viewSavingsAccount,
+    editSavingsAccount,
+    deleteSavingsAccount
 
 }
